@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TechZone PRO</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#eef4ff;
+color:#1f2937;
+}
+
+header{
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+color:white;
+text-align:center;
+padding:30px 15px;
+}
+
+header h1{
+margin:0;
+font-size:42px;
+}
+
+header p{
+font-size:18px;
+}
+
+nav{
+background:white;
+padding:12px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:7px;
+box-shadow:0 3px 10px #bbb;
+position:sticky;
+top:0;
+z-index:10;
+}
+
+nav button{
+border:0;
+background:#eff6ff;
+color:#2563eb;
+padding:10px 14px;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+nav button:hover{
+background:#2563eb;
+color:white;
+}
+
+main{
+max-width:1100px;
+margin:auto;
+padding:25px;
+}
+
+.seccion{
+display:none;
+}
+
+.seccion.activa{
+display:block;
+}
+
+.tarjeta{
+background:white;
+padding:22px;
+margin-bottom:20px;
+border-radius:18px;
+box-shadow:0 4px 15px #cbd5e1;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+
+.stat{
+background:#eff6ff;
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+.stat h2{
+font-size:32px;
+margin:5px;
+color:#2563eb;
+}
+
+.boton{
+border:0;
+background:#2563eb;
+color:white;
+padding:11px 17px;
+border-radius:9px;
+cursor:pointer;
+font-weight:bold;
+margin:5px;
+}
+
+.boton:hover{
+background:#1d4ed8;
+}
+
+input,select,textarea{
+width:100%;
+padding:12px;
+margin:5px 0;
+border:1px solid #cbd5e1;
+border-radius:9px;
+font-size:15px;
+}
+
+textarea{
+min-height:180px;
+}
+
+.formulario{
+display:grid;
+grid-template-columns:2fr 1fr 1fr auto;
+gap:8px;
+}
+
+.lista{
+padding:0;
+}
+
+.item{
+list-style:none;
+background:#f8fafc;
+padding:14px;
+margin:10px 0;
+border-radius:10px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.item-info{
+flex:1;
+}
+
+.terminada{
+text-decoration:line-through;
+color:#888;
+}
+
+.eliminar{
+background:#ef4444;
+color:white;
+border:0;
+padding:8px;
+border-radius:7px;
+cursor:pointer;
+}
+
+.progreso{
+height:25px;
+background:#dbeafe;
+border-radius:20px;
+overflow:hidden;
+}
+
+.progreso-barra{
+height:100%;
+width:0%;
+background:#22c55e;
+transition:.5s;
+}
+
+.alerta{
+background:#fef3c7;
+color:#92400e;
+padding:12px;
+border-radius:10px;
+margin:8px 0;
+}
+
+.herramienta{
+display:block;
+padding:15px;
+margin:10px 0;
+background:#eff6ff;
+color:#2563eb;
+text-decoration:none;
+font-weight:bold;
+border-radius:10px;
+}
+
+footer{
+background:#1e293b;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:30px;
+}
+
+
+/* ASISTENTE */
+
+.asistente-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.asistente-preview{
+background:linear-gradient(135deg,#dbeafe,#fce7f3);
+border-radius:20px;
+min-height:330px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.avatar{
+width:180px;
+height:250px;
+position:relative;
+display:flex;
+align-items:center;
+flex-direction:column;
+justify-content:flex-end;
+}
+
+.cabeza{
+width:110px;
+height:110px;
+background:#f2c6a0;
+border-radius:50%;
+position:relative;
+z-index:3;
+}
+
+.cabello{
+position:absolute;
+top:-8px;
+left:3px;
+width:104px;
+height:55px;
+background:#29180f;
+border-radius:60px 60px 20px 20px;
+}
+
+.ojos{
+position:absolute;
+top:48px;
+left:28px;
+font-size:18px;
+letter-spacing:25px;
+}
+
+.barba{
+display:none;
+position:absolute;
+bottom:3px;
+left:22px;
+width:66px;
+height:32px;
+background:#3b2618;
+border-radius:0 0 40px 40px;
+}
+
+.cuerpo{
+width:140px;
+height:90px;
+background:#111827;
+border-radius:35px 35px 10px 10px;
+z-index:2;
+}
+
+.pantalon{
+width:120px;
+height:50px;
+background:#1e293b;
+border-radius:8px;
+}
+
+.zapatillas{
+width:130px;
+height:20px;
+background:white;
+border-radius:15px;
+margin-top:-2px;
+}
+
+.gorra{
+display:none;
+position:absolute;
+top:-15px;
+width:120px;
+height:35px;
+background:#2563eb;
+border-radius:50px;
+z-index:5;
+}
+
+.gafas{
+display:none;
+position:absolute;
+top:55px;
+width:90px;
+height:25px;
+border:5px solid #111;
+border-radius:15px;
+z-index:6;
+}
+
+.cadena{
+display:none;
+position:absolute;
+top:115px;
+width:75px;
+height:28px;
+border:4px solid #facc15;
+border-top:0;
+border-radius:0 0 40px 40px;
+z-index:5;
+}
+
+.opciones{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+gap:8px;
+margin-bottom:15px;
+}
+
+.opcion{
+padding:12px 5px;
+border:2px solid #dbeafe;
+background:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+.opcion:hover{
+border-color:#2563eb;
+}
+
+.opcion.seleccionada{
+background:#dbeafe;
+border-color:#2563eb;
+}
+
+.chat{
+margin-top:15px;
+background:#f8fafc;
+padding:15px;
+border-radius:15px;
+}
+
+.burbuja{
+background:#dbeafe;
+padding:14px;
+border-radius:15px;
+}
+
+.monedas{
+font-size:45px;
+font-weight:bold;
+color:#16a34a;
+text-align:center;
+}
+
+.logro{
+background:#fef3c7;
+padding:15px;
+border-radius:12px;
+margin:8px 0;
+}
+
+@media(max-width:700px){
+
+.formulario{
+grid-template-columns:1fr;
+}
+
+.asistente-grid{
+grid-template-columns:1fr;
+}
+
+header h1{
+font-size:32px;
+}
+
+main{
+padding:15px;
+}
+
+}
+
+
+/* MODO OSCURO */
+
+body.oscuro{
+background:#111827;
+color:white;
+}
+
+body.oscuro nav{
+background:#1f2937;
+}
+
+body.oscuro nav button{
+background:#374151;
+color:white;
+}
+
+body.oscuro .tarjeta{
+background:#1f2937;
+}
+
+body.oscuro .stat{
+background:#374151;
+}
+
+body.oscuro .item{
+background:#374151;
+}
+
+body.oscuro input,
+body.oscuro select,
+body.oscuro textarea{
+background:#374151;
+color:white;
+border-color:#64748b;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>📓 TECHZONE PRO</h1>
+
+<p>Tu organización, estudio y ahorro en un solo lugar 🚀</p>
+
+</header>
+
+
+<nav>
+
+<button onclick="mostrar('inicio')">🏠 Inicio</button>
+
+<button onclick="mostrar('tareas')">📝 Mis tareas</button>
+
+<button onclick="mostrar('horario')">📅 Mi horario</button>
+
+<button onclick="mostrar('pendientes')">✅ Pendientes</button>
+
+<button onclick="mostrar('ahorro')">💰 Monedero</button>
+
+<button onclick="mostrar('asistente')">🤖 Mi asistente</button>
+
+<button onclick="mostrar('herramientas')">🧰 Herramientas</button>
+
+<button onclick="mostrar('logros')">🏆 Logros</button>
+
+<button onclick="mostrar('perfil')">👤 Perfil</button>
+
+<button onclick="modoOscuro()">🌙</button>
+
+</nav>
+
+
+<main>
+
+
+<!-- INICIO -->
+
+<section id="inicio" class="seccion activa">
+
+<div class="tarjeta">
+
+<h2>👋 ¡Bienvenido a TechZone!</h2>
+
+<p>
+Organiza tus tareas, horarios, ahorros y objetivos desde un solo lugar.
+</p>
+
+</div>
+
+
+<div class="grid">
+
+<div class="stat">
+
+<h2 id="totalTareas">0</h2>
+
+<p>📝 Tareas</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2 id="terminadas">0</h2>
+
+<p>✅ Terminadas</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2 id="porcentaje">0%</h2>
+
+<p>📊 Progreso</p>
+
+</div>
+
+
+<div class="stat">
+
+<h2 id="saldoInicio">S/ 0.00</h2>
+
+<p>💰 Ahorro</p>
+
+</div>
+
+</div>
+
+
+<div class="tarjeta">
+
+<h2>📊 Mi progreso</h2>
+
+<div class="progreso">
+
+<div id="barraProgreso" class="progreso-barra"></div>
+
+</div>
+
+<p id="textoProgreso">
+Todavía no tienes tareas.
+</p>
+
+</div>
+
+
+<div class="tarjeta">
+
+<h2>🤖 Mi asistente</h2>
+
+<div id="inicioAsistente">
+
+Todavía no has creado tu asistente.
+
+</div>
+
+<br>
+
+<button class="boton" onclick="mostrar('asistente')">
+
+✨ Personalizar asistente
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- TAREAS -->
+
+<section id="tareas" class="seccion">
+
+<div class="tarjeta">
+
+<h2>📝 Mis tareas</h2>
+
+<div class="formulario">
+
+<input id="nombreTarea" placeholder="Escribe tu tarea">
+
+<input id="fechaTarea" type="date">
+
+<select id="prioridadTarea">
+
+<option value="urgente">
+🔴 Urgente
+</option>
+
+<option value="normal" selected>
+🟡 Normal
+</option>
+
+<option value="baja">
+🟢 Baja
+</option>
+
+</select>
+
+<button class="boton" onclick="agregarTarea()">
+➕ Agregar
+</button>
+
+</div>
+
+
+<input id="buscarTarea"
+placeholder="🔍 Buscar tarea..."
+oninput="mostrarTareas()">
+
+
+<ul id="listaTareas" class="lista"></ul>
+
+</div>
+
+</section>
+
+
+
+<!-- HORARIO -->
+
+<section id="horario" class="seccion">
+
+<div class="tarjeta">
+
+<h2>📅 Mi horario</h2>
+
+<textarea id="textoHorario"
+
+placeholder="Lunes: Matemática 8:00 - 9:00
+
+Martes: Comunicación 9:00 - 10:00
+
+Miércoles: Ciencia 10:00 - 11:00
+
+Jueves: Inglés 8:00 - 9:00
+
+Viernes: Arte 10:00 - 11:00">
+
+</textarea>
+
+<button class="boton" onclick="guardarHorario()">
+
+💾 Guardar horario
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- PENDIENTES -->
+
+<section id="pendientes" class="seccion">
+
+<div class="tarjeta">
+
+<h2>✅ Pendientes</h2>
+
+<input id="nuevoPendiente"
+placeholder="Escribe algo que no quieras olvidar">
+
+<button class="boton" onclick="agregarPendiente()">
+
+➕ Agregar
+
+</button>
+
+<ul id="listaPendientes" class="lista"></ul>
+
+</div>
+
+</section>
+
+
+
+<!-- MONEDERO -->
+
+<section id="ahorro" class="seccion">
+
+<div class="tarjeta">
+
+<h2>💰 Mi Monedero</h2>
+
+<div id="saldo" class="monedas">
+S/ 0.00
+</div>
+
+<h3>🎯 Mi meta</h3>
+
+<p id="metaTexto">
+S/ 0.00
+</p>
+
+<div class="progreso">
+
+<div id="barraAhorro" class="progreso-barra">
+
+</div>
+
+</div>
+
+<p id="progresoAhorro">
+0% de tu meta
+</p>
+
+</div>
+
+
+<div class="tarjeta">
+
+<h2>🎯 Crear meta de ahorro</h2>
+
+<input id="metaAhorro"
+type="number"
+placeholder="Ejemplo: 8000">
+
+<button class="boton" onclick="guardarMeta()">
+
+💾 Guardar meta
+
+</button>
+
+</div>
+
+
+<div class="tarjeta">
+
+<h2>💵 Agregar dinero</h2>
+
+<input id="cantidadAhorro"
+type="number"
+placeholder="Cantidad">
+
+<button class="boton"
+onclick="agregarAhorro()">
+
+➕ Depositar
+
+</button>
+
+</div>
+
+
+<div class="tarjeta">
+
+<h2>💸 Retirar dinero</h2>
+
+<input id="cantidadRetiro"
+type="number"
+placeholder="Cantidad">
+
+<button class="boton"
+onclick="retirarDinero()">
+
+💸 Retirar
+
+</button>
+
+</div>
+
+
+<div class="tarjeta">
+
+<h2>📜 Historial</h2>
+
+<div id="historial">
+No hay movimientos todavía.
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ASISTENTE -->
+
+<section id="asistente" class="seccion">
+
+<div class="tarjeta">
+
+<h2>🤖✨ Crea tu asistente</h2>
+
+<p>
+¡Personalízala o personalízalo como quieras!
+</p>
+
+
+<div class="asistente-grid">
+
+
+<div>
+
+<label>
+<b>✏️ Nombre</b>
+</label>
+
+<input id="nombreAsistente"
+placeholder="Ejemplo: Chispi">
+
+
+<h3>👤 Personaje</h3>
+
+<div class="opciones">
+
+<button class="opcion"
+onclick="elegir('tipo','joven',this)">
+🧑<br>Joven
+</button>
+
+<button class="opcion"
+onclick="elegir('tipo','senor',this)">
+👨<br>Señor
+</button>
+
+<button class="opcion"
+onclick="elegir('tipo','senora',this)">
+👩<br>Señora
+</button>
+
+<button class="opcion"
+onclick="elegir('tipo','nino',this)">
+🧒<br>Niño
+</button>
+
+<button class="opcion"
+onclick="elegir('tipo','robot',this)">
+🤖<br>Robot
+</button>
+
+</div>
+
+
+<h3>👕 Estilo</h3>
+
+<div class="opciones">
+
+<button class="opcion"
+onclick="elegir('estilo','drip',this)">
+🔥<br>DRIP
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','casual',this)">
+😎<br>Casual
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','normal',this)">
+👕<br>Normal
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','y2k',this)">
+💿<br>Y2K
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','escolar',this)">
+🏫<br>Escolar
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','elegante',this)">
+👔<br>Elegante
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','deportivo',this)">
+🏀<br>Deportivo
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','gamer',this)">
+🎮<br>Gamer
+</button>
+
+<button class="opcion"
+onclick="elegir('estilo','futurista',this)">
+🤖<br>Futurista
+</button>
+
+</div>
+
+
+<h3>😄 Personalidad</h3>
+
+<div class="opciones">
+
+<button class="opcion"
+onclick="elegir('personalidad','alegre',this)">
+😂<br>Alegre
+</button>
+
+<button class="opcion"
+onclick="elegir('personalidad','motivadora',this)">
+🔥<br>Motivadora
+</button>
+
+<button class="opcion"
+onclick="elegir('personalidad','inteligente',this)">
+🤓<br>Inteligente
+</button>
+
+<button class="opcion"
+onclick="elegir('personalidad','relajada',this)">
+😎<br>Relajada
+</button>
+
+</div>
+
+
+<h3>🎨 Color de ropa</h3>
+
+<select id="colorAsistente">
+
+<option value="#111827">
+⚫ Negro
+</option>
+
+<option value="#2563eb">
+🔵 Azul
+</option>
+
+<option value="#dc2626">
+🔴 Rojo
+</option>
+
+<option value="#16a34a">
+🟢 Verde
+</option>
+
+<option value="#7c3aed">
+🟣 Morado
+</option>
+
+<option value="#facc15">
+🟡 Amarillo
+</option>
+
+</select>
+
+
+<button class="boton"
+onclick="guardarAsistente()">
+
+💾 Guardar asistente
+
+</button>
+
+</div>
+
+
+
+<div>
+
+<div class="asistente-preview">
+
+<div class="avatar">
+
+<div class="cabeza">
+
+<div class="cabello"></div>
+
+<div class="ojos">
+• •
+</div>
+
+<div class="barba"></div>
+
+</div>
+
+<div
+class="cuerpo"
+id="cuerpo">
+</div>
+
+<div class="pantalon"></div>
+
+<div class="zapatillas"></div>
+
+<div
+class="gorra"
+id="gorra">
+</div>
+
+<div
+class="gafas"
+id="gafas">
+</div>
+
+<div
+class="cadena"
+id="cadena">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="chat">
+
+<div
+id="mensajeAsistente"
+class="burbuja">
+
+¡Hola! 👋
+Personalízame y seré tu asistente.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- HERRAMIENTAS -->
+
+<section id="herramientas" class="seccion">
+
+<div class="tarjeta">
+
+<h2>🧰 Herramientas digitales</h2>
+
+<a
+class="herramienta"
+href="https://www.google.com"
+target="_blank">
+
+🔎 Google — Buscar información
+
+</a>
+
+
+<a
+class="herramienta"
+href="https://www.canva.com"
+target="_blank">
+
+🎨 Canva — Crear diseños
+
+</a>
+
+
+<a
+class="herramienta"
+href="https://www.geogebra.org"
+target="_blank">
+
+🧮 GeoGebra — Matemáticas
+
+</a>
+
+
+<a
+class="herramienta"
+href="https://www.wikipedia.org"
+target="_blank">
+
+📚 Wikipedia — Información
+
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- LOGROS -->
+
+<section id="logros" class="seccion">
+
+<div class="tarjeta">
+
+<h2>🏆 Mis logros</h2>
+
+<div class="logro">
+🏆 ¡Primer paso! — Crea tu primera tarea.
+</div>
+
+<div class="logro">
+🔥 ¡En marcha! — Completa 5 tareas.
+</div>
+
+<div class="logro">
+💰 ¡Ahorrador! — Alcanza tu primera meta.
+</div>
+
+<div class="logro">
+📚 ¡Estudiante organizado! — Usa tu horario.
+</div>
+
+<div class="logro">
+🤖 ¡Tecnológico! — Personaliza tu asistente.
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- PERFIL -->
+
+<section id="perfil" class="seccion">
+
+<div class="tarjeta">
+
+<h2>👤 Mi perfil</h2>
+
+<input
+id="nombreUsuario"
+placeholder="Tu nombre">
+
+<input
+id="gradoUsuario"
+placeholder="Tu grado">
+
+<input
+id="colegioUsuario"
+placeholder="Tu colegio">
+
+<button
+class="boton"
+onclick="guardarPerfil()">
+
+💾 Guardar perfil
+
+</button>
+
+<div id="perfilMostrado"></div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+TechZone PRO • Proyecto Crea y Emprende • 2026
+
+<br><br>
+
+💡 Organiza. Aprende. Ahorra. Avanza.
+
+</footer>
+
+
+
+<script>
+
+
+/* CAMBIO DE SECCIONES */
+
+function mostrar(id){
+
+document.querySelectorAll(".seccion")
+.forEach(function(seccion){
+
+seccion.classList.remove("activa");
+
+});
+
+document.getElementById(id)
+.classList.add("activa");
+
+actualizarTodo();
+
+}
+
+
+
+/* MODO OSCURO */
+
+function modoOscuro(){
+
+document.body.classList.toggle("oscuro");
+
+}
+
+
+
+/* TAREAS */
+
+function agregarTarea(){
+
+let nombre =
+document.getElementById("nombreTarea").value.trim();
+
+let fecha =
+document.getElementById("fechaTarea").value;
+
+let prioridad =
+document.getElementById("prioridadTarea").value;
+
+
+if(nombre===""){
+
+alert("Escribe una tarea.");
+
+return;
+
+}
+
+
+let tareas =
+JSON.parse(localStorage.getItem("tareas")) || [];
+
+
+tareas.push({
+
+nombre:nombre,
+
+fecha:fecha,
+
+prioridad:prioridad,
+
+terminada:false
+
+});
+
+
+localStorage.setItem(
+"tareas",
+JSON.stringify(tareas)
+);
+
+
+document.getElementById("nombreTarea").value="";
+
+mostrarTareas();
+
+actualizarTodo();
+
+}
+
+
+
+function mostrarTareas(){
+
+let lista =
+document.getElementById("listaTareas");
+
+if(!lista)return;
+
+
+lista.innerHTML="";
+
+
+let tareas =
+JSON.parse(localStorage.getItem("tareas")) || [];
+
+
+let buscar =
+(document.getElementById("buscarTarea")?.value || "")
+.toLowerCase();
+
+
+tareas.forEach(function(tarea,index){
+
+if(!tarea.nombre
+.toLowerCase()
+.includes(buscar)){
+
+return;
+
+}
+
+
+let li =
+document.createElement("li");
+
+li.className="item";
+
+
+let checkbox =
+document.createElement("input");
+
+checkbox.type="checkbox";
+
+checkbox.checked=tarea.terminada;
+
+
+checkbox.onchange=function(){
+
+tarea.terminada =
+!tarea.terminada;
+
+localStorage.setItem(
+"tareas",
+JSON.stringify(tareas)
+);
+
+mostrarTareas();
+
+actualizarTodo();
+
+};
+
+
+let info =
+document.createElement("div");
+
+info.className="item-info";
+
+
+let nombre =
+document.createElement("strong");
+
+nombre.textContent =
+tarea.nombre;
+
+
+if(tarea.terminada){
+
+nombre.classList.add("terminada");
+
+}
+
+
+let detalles =
+document.createElement("div");
+
+detalles.textContent =
+"📅 " +
+(tarea.fecha || "Sin fecha") +
+" • " +
+tarea.prioridad;
+
+
+info.appendChild(nombre);
+
+info.appendChild(detalles);
+
+
+let eliminar =
+document.createElement("button");
+
+eliminar.className="eliminar";
+
+eliminar.textContent="🗑️";
+
+
+eliminar.onclick=function(){
+
+tareas.splice(index,1);
+
+localStorage.setItem(
+"tareas",
+JSON.stringify(tareas)
+);
+
+mostrarTareas();
+
+actualizarTodo();
+
+};
+
+
+li.appendChild(checkbox);
+
+li.appendChild(info);
+
+li.appendChild(eliminar);
+
+lista.appendChild(li);
+
+});
+
+}
+
+
+
+/* PENDIENTES */
+
+function agregarPendiente(){
+
+let texto =
+document
+.getElementById("nuevoPendiente")
+.value
+.trim();
+
+
+if(texto==="")return;
+
+
+let pendientes =
+JSON.parse(localStorage.getItem("pendientes"))
+|| [];
+
+
+pendientes.push(texto);
+
+
+localStorage.setItem(
+"pendientes",
+JSON.stringify(pendientes)
+);
+
+
+document.getElementById("nuevoPendiente").value="";
+
+
+mostrarPendientes();
+
+}
+
+
+
+function mostrarPendientes(){
+
+let lista =
+document.getElementById("listaPendientes");
+
+if(!lista)return;
+
+
+lista.innerHTML="";
+
+
+let pendientes =
+JSON.parse(localStorage.getItem("pendientes"))
+|| [];
+
+
+pendientes.forEach(function(p,index){
+
+let li =
+document.createElement("li");
+
+li.className="item";
+
+
+let texto =
+document.createElement("div");
+
+texto.className="item-info";
+
+texto.textContent="✅ "+p;
+
+
+let eliminar =
+document.createElement("button");
+
+eliminar.className="eliminar";
+
+eliminar.textContent="🗑️";
+
+
+eliminar.onclick=function(){
+
+pendientes.splice(index,1);
+
+localStorage.setItem(
+"pendientes",
+JSON.stringify(pendientes)
+);
+
+mostrarPendientes();
+
+};
+
+
+li.appendChild(texto);
+
+li.appendChild(eliminar);
+
+lista.appendChild(li);
+
+});
+
+}
+
+
+
+/* HORARIO */
+
+function guardarHorario(){
+
+let horario =
+document.getElementById("textoHorario").value;
+
+
+localStorage.setItem(
+"horario",
+horario
+);
+
+
+alert("✅ Horario guardado.");
+
+}
+
+
+
+/* MONEDERO */
+
+function obtenerSaldo(){
+
+return Number(
+localStorage.getItem("saldo")
+) || 0;
+
+}
+
+
+function obtenerMeta(){
+
+return Number(
+localStorage.getItem("meta")
+) || 0;
+
+}
+
+
+function guardarMeta(){
+
+let meta =
+Number(
+document.getElementById("metaAhorro").value
+);
+
+
+if(meta<=0){
+
+alert("Escribe una meta válida.");
+
+return;
+
+}
+
+
+localStorage.setItem(
+"meta",
+meta
+);
+
+
+actualizarAhorro();
+
+}
+
+
+
+function agregarAhorro(){
+
+let cantidad =
+Number(
+document.getElementById("cantidadAhorro").value
+);
+
+
+if(cantidad<=0){
+
+alert("Escribe una cantidad válida.");
+
+return;
+
+}
+
+
+let saldo =
+obtenerSaldo()+cantidad;
+
+
+localStorage.setItem(
+"saldo",
+saldo
+);
+
+
+document.getElementById("cantidadAhorro").value="";
+
+
+actualizarAhorro();
+
+}
+
+
+
+function retirarDinero(){
+
+let cantidad =
+Number(
+document.getElementById("cantidadRetiro").value
+);
+
+
+if(cantidad<=0)return;
+
+
+let saldo =
+obtenerSaldo();
+
+
+if(cantidad>saldo){
+
+alert("No tienes suficiente dinero.");
+
+return;
+
+}
+
+
+localStorage.setItem(
+"saldo",
+saldo-cantidad
+);
+
+
+document.getElementById("cantidadRetiro").value="";
+
+
+actualizarAhorro();
+
+}
+
+
+
+function actualizarAhorro(){
+
+let saldo =
+obtenerSaldo();
+
+let meta =
+obtenerMeta();
+
+
+let porcentaje =
+meta > 0
+? Math.min(100,(saldo/meta)*100)
+:0;
+
+
+document.getElementById("saldo")
+.textContent =
+"S/ "+saldo.toFixed(2);
+
+
+document.getElementById("saldoInicio")
+.textContent =
+"S/ "+saldo.toFixed(2);
+
+
+document.getElementById("metaTexto")
+.textContent =
+"S/ "+meta.toFixed(2);
+
+
+document.getElementById("barraAhorro")
+.style.width =
+porcentaje+"%";
+
+
+document.getElementById("progresoAhorro")
+.textContent =
+porcentaje.toFixed(0)+"% de tu meta";
+
+}
+
+
+
+/* ASISTENTE */
+
+let configuracion={
+
+tipo:"joven",
+
+estilo:"casual",
+
+personalidad:"alegre",
+
+color:"#111827"
+
+};
+
+
+
+function elegir(categoria,valor,boton){
+
+configuracion[categoria]=valor;
+
+
+boton.parentElement
+.querySelectorAll(".opcion")
+.forEach(function(b){
+
+b.classList.remove("seleccionada");
+
+});
+
+
+boton.classList.add("seleccionada");
+
+
+dibujarAsistente();
+
+}
+
+
+
+function guardarAsistente(){
+
+configuracion.nombre =
+document
+.getElementById("nombreAsistente")
+.value
+.trim();
+
+
+if(configuracion.nombre===""){
+
+configuracion.nombre="Chispi";
+
+}
+
+
+configuracion.color =
+document.getElementById("colorAsistente")
+.value;
+
+
+localStorage.setItem(
+"asistente",
+JSON.stringify(configuracion)
+);
+
+
+dibujarAsistente();
+
+
+alert("🎉 ¡Tu asistente fue guardada!");
+
+}
+
+
+
+function dibujarAsistente(){
+
+let guardada =
+JSON.parse(
+localStorage.getItem("asistente")
+);
+
+
+if(guardada){
+
+configuracion =
+Object.assign(
+configuracion,
+guardada
+);
+
+}
+
+
+let nombre =
+configuracion.nombre || "Chispi";
+
+
+let mensaje =
+document.getElementById(
+"mensajeAsistente"
+);
+
+
+if(configuracion.personalidad==="motivadora"){
+
+mensaje.textContent =
+"🔥 "+nombre+
+": ¡Tú puedes! Vamos a completar todo.";
+
+}
+
+else if(
+configuracion.personalidad==="inteligente"
+){
+
+mensaje.textContent =
+"🤓 "+nombre+
+": Tengo todo listo para ayudarte.";
+
+}
+
+else if(
+configuracion.personalidad==="relajada"
+){
+
+mensaje.textContent =
+"😎 "+nombre+
+": Vamos tranquilos, pero avanzando.";
+
+}
+
+else{
+
+mensaje.textContent =
+"😂 "+nombre+
+": ¡Holaaa! ¿Qué vamos a organizar hoy?";
+
+}
+
+
+
+let cuerpo =
+document.getElementById("cuerpo");
+
+
+cuerpo.style.background =
+configuracion.color;
+
+
+
+let gorra =
+document.getElementById("gorra");
+
+let gafas =
+document.getElementById("gafas");
+
+let cadena =
+document.getElementById("cadena");
+
+
+if(
+configuracion.estilo==="drip" ||
+configuracion.estilo==="y2k" ||
+configuracion.estilo==="gamer"
+){
+
+gorra.style.display="block";
+
+gafas.style.display="block";
+
+}
+
+else{
+
+gorra.style.display="none";
+
+gafas.style.display="none";
+
+}
+
+
+if(configuracion.estilo==="drip"){
+
+cadena.style.display="block";
+
+}
+
+else{
+
+cadena.style.display="none";
+
+}
+
+
+let barba =
+document.querySelector(".barba");
+
+
+if(configuracion.tipo==="senor"){
+
+barba.style.display="block";
+
+}
+
+else{
+
+barba.style.display="none";
+
+}
+
+
+document.getElementById(
+"inicioAsistente"
+).innerHTML=
+
+"🤖 <b>"+nombre+
+"</b><br>"+
+"👤 "+configuracion.tipo+
+" • 👕 "+configuracion.estilo+
+" • 😄 "+configuracion.personalidad;
+
+}
+
+
+
+/* PERFIL */
+
+function guardarPerfil(){
+
+let perfil={
+
+nombre:
+document.getElementById("nombreUsuario").value,
+
+grado:
+document.getElementById("gradoUsuario").value,
+
+colegio:
+document.getElementById("colegioUsuario").value
+
+};
+
+
+localStorage.setItem(
+"perfil",
+JSON.stringify(perfil)
+);
+
+
+mostrarPerfil();
+
+alert("✅ Perfil guardado.");
+
+}
+
+
+
+function mostrarPerfil(){
+
+let perfil =
+JSON.parse(
+localStorage.getItem("perfil")
+);
+
+
+if(!perfil)return;
+
+
+document.getElementById(
+"nombreUsuario"
+).value =
+perfil.nombre || "";
+
+
+document.getElementById(
+"gradoUsuario"
+).value =
+perfil.grado || "";
+
+
+document.getElementById(
+"colegioUsuario"
+).value =
+perfil.colegio || "";
+
+
+document.getElementById(
+"perfilMostrado"
+).innerHTML=
+
+"<hr><h3>👋 Hola, "+
+perfil.nombre+
+"</h3><p>🎓 "+
+perfil.grado+
+"</p><p>🏫 "+
+perfil.colegio+
+"</p>";
+
+}
+
+
+
+/* ESTADÍSTICAS */
+
+function actualizarProgreso(){
+
+let tareas =
+JSON.parse(
+localStorage.getItem("tareas")
+) || [];
+
+
+let total =
+tareas.length;
+
+
+let terminadas =
+tareas.filter(
+function(t){
+return t.terminada;
+}
+).length;
+
+
+let porcentaje =
+total
+? Math.round(
+(terminadas/total)*100
+)
+:0;
+
+
+document.getElementById(
+"totalTareas"
+).textContent=total;
+
+
+document.getElementById(
+"terminadas"
+).textContent=terminadas;
+
+
+document.getElementById(
+"porcentaje"
+).textContent=
+porcentaje+"%";
+
+
+document.getElementById(
+"barraProgreso"
+).style.width=
+porcentaje+"%";
+
+
+document.getElementById(
+"textoProgreso"
+).textContent=
+
+total
+? terminadas+
+" de "+
+total+
+" tareas completadas."
+:"Todavía no tienes tareas.";
+
+}
+
+
+
+/* ACTUALIZAR TODO */
+
+function actualizarTodo(){
+
+mostrarTareas();
+
+mostrarPendientes();
+
+actualizarProgreso();
+
+actualizarAhorro();
+
+mostrarPerfil();
+
+dibujarAsistente();
+
+}
+
+
+
+/* CARGAR DATOS */
+
+if(
+localStorage.getItem("horario")
+){
+
+document.getElementById(
+"textoHorario"
+).value=
+localStorage.getItem("horario");
+
+}
+
+
+actualizarTodo();
+
+
+</script>
+
+</body>
+</html>
